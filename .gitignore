@@ -1,5 +1,6 @@
 .tool-versions
 .php-cs-fixer.cache
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
