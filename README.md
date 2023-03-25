@@ -41,7 +41,7 @@ composer install
 5. Create a file `.env.local` and add your database connection. Example:
 
 ```
-DATABASE_URL="mysql://root:root@localhost:3306/job-board-api"
+DATABASE_URL="mysql://root:@localhost:3306/job-board-api"
 ```
 
 6. Create the tables:
