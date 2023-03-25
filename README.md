@@ -88,7 +88,7 @@ php tools/php-cs-fixer/vendor/bin/php-cs-fixer fix src --rules=@PSR12
 
 ## Static Analysis
 
-Install PHPStan
+Install PHPStan:
 
 ```
 composer require --dev phpstan/phpstan-symfony
