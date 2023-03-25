@@ -22,7 +22,7 @@ The Job Board API consists of entities such as user, company, job, and applicant
 1. Clone the repository:
 
 ```
-git clone git@github.com:jagaad/classroom-php-2209-001-api-bookmarks.git
+git clone git@github.com:KrivanRaulAdrian/job-board-api.git
 ```
 
 2. Access the directory:
