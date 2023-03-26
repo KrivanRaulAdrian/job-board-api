@@ -40,7 +40,7 @@ composer install
 4. Go to MySQL and create the database `job-board-ap`
 5. Create a file `.env.local` and add your database connection. Example:
 
-```
+```dotenv
 DATABASE_URL="mysql://root:@localhost:3306/job-board-api"
 ```
 
