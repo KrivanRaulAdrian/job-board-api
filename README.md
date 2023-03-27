@@ -40,8 +40,8 @@ composer install
 4. Go to MySQL and create the database `job-board-ap`
 5. Create a file `.env.local` and add your database connection. Example:
 
-```
-DATABASE_URL="mysql://root:root@localhost:3306/job-board-api"
+```dotenv
+DATABASE_URL="mysql://root:@localhost:3306/job-board-api"
 ```
 
 6. Create the tables:
@@ -87,6 +87,32 @@ php tools/php-cs-fixer/vendor/bin/php-cs-fixer fix src --rules=@PSR12
 ```
 
 ## Static Analysis
+
+Install PHPStan:
+
+```
+composer require --dev phpstan/phpstan-symfony
+```
+
+If you also install [phpstan/extension-installer](https://github.com/phpstan/extension-installer) then you're all set!
+
+<details>
+  <summary>Manual installation</summary>
+
+If you don't want to use `phpstan/extension-installer`, include extension.neon in your project's PHPStan config:
+
+```
+includes:
+    - vendor/phpstan/phpstan-symfony/extension.neon
+```
+
+To perform framework-specific checks, include also this file:
+
+```
+includes:
+    - vendor/phpstan/phpstan-symfony/rules.neon
+```
+</details>
 
 Run PHPStan:
 
