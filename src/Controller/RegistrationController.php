@@ -39,8 +39,12 @@ class RegistrationController extends AbstractController
         description: 'Invalid inputs',
         content: new OA\JsonContent(ref: new Model(type: ResponseDto::class))
     )]
-    public function register(Request $request, UserRepository $userRepository, ValidatorInterface $validatorInterface, UserPasswordHasherInterface $hasher): JsonResponse
-    {
+    public function register(
+        Request $request,
+        UserRepository $userRepository,
+        ValidatorInterface $validatorInterface,
+        UserPasswordHasherInterface $hasher
+    ): JsonResponse {
         $params = json_decode($request->getContent(), true);
 
         $user = new User();
@@ -48,7 +52,11 @@ class RegistrationController extends AbstractController
         if ($params['password'] === '') {
             return $this->jsonResponse('Password cannot be empty', ['password' => $params['password']], 400);
         } elseif (strlen($params['password']) < 10) {
-            return $this->jsonResponse('Password length needs to be at least 10 characters or longer', ['password' => $params['password']], 400);
+            return $this->jsonResponse(
+                'Password length needs to be at least 10 characters or longer',
+                ['password' => $params['password']],
+                400
+            );
         }
 
         $hashedPassword = $hasher->hashPassword($user, $params['password']);

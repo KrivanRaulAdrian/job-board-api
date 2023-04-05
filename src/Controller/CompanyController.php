@@ -29,10 +29,26 @@ class CompanyController extends AbstractController
         description: "Json to create the company",
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: "name", type: "string", example: "My name example"),
-                new OA\Property(property: "description", type: "string", example: "My description example"),
-                new OA\Property(property: "location", type: "string", example: "My location example"),
-                new OA\Property(property: "contactInformation", type: "string", example: "My contact information example"),
+                new OA\Property(
+                    property: "name",
+                    type: "string",
+                    example: "My name example"
+                ),
+                new OA\Property(
+                    property: "description",
+                    type: "string",
+                    example: "My description example"
+                ),
+                new OA\Property(
+                    property: "location",
+                    type: "string",
+                    example: "My location example"
+                ),
+                new OA\Property(
+                    property: "contactInformation",
+                    type: "string",
+                    example: "My contact information example"
+                ),
             ]
         )
     )]
@@ -46,8 +62,11 @@ class CompanyController extends AbstractController
         description: 'Invalid inputs',
         content: new OA\JsonContent(ref: new Model(type: ResponseDto::class))
     )]
-    public function create(CompanyRepository $companyRepository, Request $request, ValidatorInterface $validatorInterface): Response
-    {
+    public function create(
+        CompanyRepository $companyRepository,
+        Request $request,
+        ValidatorInterface $validatorInterface
+    ): Response {
         $jsonParams = json_decode($request->getContent(), true);
 
         $company = new Company();
@@ -70,8 +89,11 @@ class CompanyController extends AbstractController
 
     #[Route(path: "/companies", methods: ["GET"])]
     #[OA\Get(description: "Return all companies")]
-    public function findAll(CompanyRepository $companyRepository, SerializerInterface $serializerInterface, TokenStorageInterface $tokenStorageInterface): Response
-    {
+    public function findAll(
+        CompanyRepository $companyRepository,
+        SerializerInterface $serializerInterface,
+        TokenStorageInterface $tokenStorageInterface
+    ): Response {
         $token = $tokenStorageInterface->getToken();
         $user = $token?->getUser();
 
@@ -81,24 +103,33 @@ class CompanyController extends AbstractController
 
         $companies = $companyRepository->findAll();
 
-        $json = $serializerInterface->serialize($companies, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['applicants', 'company']]);
-        ;
+        $json = $serializerInterface->serialize(
+            $companies,
+            'json',
+            [AbstractNormalizer::IGNORED_ATTRIBUTES => ['applicants', 'company']]
+        );
 
         return $this->jsonResponse('List of companies requested by ' . $user->getEmail(), $json);
     }
 
     #[Route(path: "/companies/{id}", methods: ["GET"])]
     #[OA\Get(description: "Return a company by its ID")]
-    public function findById(CompanyRepository $companyRepository, string $id, SerializerInterface $serializerInterface): Response
-    {
+    public function findById(
+        CompanyRepository $companyRepository,
+        string $id,
+        SerializerInterface $serializerInterface
+    ): Response {
         $company = $companyRepository->find($id);
 
         if ($company === null) {
             return $this->jsonResponse('Company not found', ['id' => $id], 404);
         }
 
-        $json = $serializerInterface->serialize($company, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['applicants', 'company']]);
-        ;
+        $json = $serializerInterface->serialize(
+            $company,
+            'json',
+            [AbstractNormalizer::IGNORED_ATTRIBUTES => ['applicants', 'company']]
+        );
 
         return $this->jsonResponse('Company by ID', $json);
     }
@@ -109,10 +140,26 @@ class CompanyController extends AbstractController
         description: "Json to update the company",
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: "name", type: "string", example: "My update name example"),
-                new OA\Property(property: "description", type: "string", example: "My update description example"),
-                new OA\Property(property: "location", type: "string", example: "My update location example"),
-                new OA\Property(property: "contactInformation", type: "string", example: "My update contact information example"),
+                new OA\Property(
+                    property: "name",
+                    type: "string",
+                    example: "My update name example"
+                ),
+                new OA\Property(
+                    property: "description",
+                    type: "string",
+                    example: "My update description example"
+                ),
+                new OA\Property(
+                    property: "location",
+                    type: "string",
+                    example: "My update location example"
+                ),
+                new OA\Property(
+                    property: "contactInformation",
+                    type: "string",
+                    example: "My update contact information example"
+                ),
             ]
         )
     )]
@@ -126,8 +173,13 @@ class CompanyController extends AbstractController
         description: 'Invalid inputs',
         content: new OA\JsonContent(ref: new Model(type: ResponseDto::class))
     )]
-    public function update(CompanyRepository $companyRepository, Request $request, ValidatorInterface $validatorInterface, string $id, SerializerInterface $serializerInterface): Response
-    {
+    public function update(
+        CompanyRepository $companyRepository,
+        Request $request,
+        ValidatorInterface $validatorInterface,
+        string $id,
+        SerializerInterface $serializerInterface
+    ): Response {
         $company = $companyRepository->find($id);
 
         if ($company === null) {
@@ -149,8 +201,11 @@ class CompanyController extends AbstractController
 
         $companyRepository->save($company, true);
 
-        $json = $serializerInterface->serialize($company, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['applicants', 'company']]);
-        ;
+        $json = $serializerInterface->serialize(
+            $company,
+            'json',
+            [AbstractNormalizer::IGNORED_ATTRIBUTES => ['applicants', 'company']]
+        );
 
         return $this->jsonResponse('Company updated successfully', $json);
     }

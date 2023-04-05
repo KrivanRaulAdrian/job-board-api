@@ -31,9 +31,17 @@ class ApplicantController extends AbstractController
         content: new OA\JsonContent(
             properties: [
                 new OA\Property(property: "name", type: "string", example: "My name example"),
-                new OA\Property(property: "contactInformation", type: "string", example: "My contact information example"),
+                new OA\Property(
+                    property: "contactInformation",
+                    type: "string",
+                    example: "My contact information example"
+                ),
                 new OA\Property(property: "jobPreferences", type: "string", example: "My job preferences example"),
-                new OA\Property(property: "jobsApplied", type: "string", example: "01870e85-f364-7680-bb24-42762f5afcda"),
+                new OA\Property(
+                    property: "jobsApplied",
+                    type: "string",
+                    example: "01870e85-f364-7680-bb24-42762f5afcda"
+                ),
             ]
         )
     )]
@@ -47,12 +55,20 @@ class ApplicantController extends AbstractController
         description: 'Invalid inputs',
         content: new OA\JsonContent(ref: new Model(type: ResponseDto::class))
     )]
-    public function create(ApplicantRepository $applicantRepository, JobRepository $jobRepository, Request $request, ValidatorInterface $validatorInterface): Response
-    {
+    public function create(
+        ApplicantRepository $applicantRepository,
+        JobRepository $jobRepository,
+        Request $request,
+        ValidatorInterface $validatorInterface
+    ): Response {
         $jsonParams = json_decode($request->getContent(), true);
 
         if ($jsonParams['jobsApplied'] === '') {
-            return $this->jsonResponse('Invalid inputs', ['jobsApplied' => $jsonParams['jobsApplied'] . 'This value should not be blank.'], 400);
+            return $this->jsonResponse(
+                'Invalid inputs',
+                ['jobsApplied' => $jsonParams['jobsApplied'] . 'This value should not be blank.'],
+                400
+            );
         }
 
         $applicant = new Applicant();
@@ -77,8 +93,11 @@ class ApplicantController extends AbstractController
 
     #[Route(path: "/applicants", methods: ["GET"])]
     #[OA\Get(description: "Return all applicants")]
-    public function findAll(ApplicantRepository $applicantRepository, SerializerInterface $serializerInterface, TokenStorageInterface $tokenStorageInterface): Response
-    {
+    public function findAll(
+        ApplicantRepository $applicantRepository,
+        SerializerInterface $serializerInterface,
+        TokenStorageInterface $tokenStorageInterface
+    ): Response {
         $token = $tokenStorageInterface->getToken();
         $user = $token?->getUser();
 
@@ -88,24 +107,33 @@ class ApplicantController extends AbstractController
 
         $applicants = $applicantRepository->findAll();
 
-        $json = $serializerInterface->serialize($applicants, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['jobsApplied']]);
-        ;
+        $json = $serializerInterface->serialize(
+            $applicants,
+            'json',
+            [AbstractNormalizer::IGNORED_ATTRIBUTES => ['jobsApplied']]
+        );
 
         return $this->jsonResponse('List of applicants requested by ' . $user->getEmail(), $json);
     }
 
     #[Route(path: "/applicants/{id}", methods: ["GET"])]
     #[OA\Get(description: "Return an applicant by its ID")]
-    public function findById(ApplicantRepository $applicantRepository, string $id, SerializerInterface $serializerInterface): Response
-    {
+    public function findById(
+        ApplicantRepository $applicantRepository,
+        string $id,
+        SerializerInterface $serializerInterface
+    ): Response {
         $applicant = $applicantRepository->find($id);
 
         if ($applicant === null) {
             return $this->jsonResponse('Applicant not found', ['id' => $id], 404);
         }
 
-        $json = $serializerInterface->serialize($applicant, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['jobsApplied']]);
-        ;
+        $json = $serializerInterface->serialize(
+            $applicant,
+            'json',
+            [AbstractNormalizer::IGNORED_ATTRIBUTES => ['jobsApplied']]
+        );
 
         return $this->jsonResponse('Applicant by ID', $json);
     }
@@ -117,8 +145,16 @@ class ApplicantController extends AbstractController
         content: new OA\JsonContent(
             properties: [
                 new OA\Property(property: "name", type: "string", example: "My update name example"),
-                new OA\Property(property: "contactInformation", type: "string", example: "My update contact information example"),
-                new OA\Property(property: "jobPreferences", type: "string", example: "My update job preferences example"),
+                new OA\Property(
+                    property: "contactInformation",
+                    type: "string",
+                    example: "My update contact information example"
+                ),
+                new OA\Property(
+                    property: "jobPreferences",
+                    type: "string",
+                    example: "My update job preferences example"
+                ),
             ]
         )
     )]
@@ -132,8 +168,13 @@ class ApplicantController extends AbstractController
         description: 'Invalid inputs',
         content: new OA\JsonContent(ref: new Model(type: ResponseDto::class))
     )]
-    public function update(ApplicantRepository $applicantRepository, Request $request, ValidatorInterface $validatorInterface, string $id, SerializerInterface $serializerInterface): Response
-    {
+    public function update(
+        ApplicantRepository $applicantRepository,
+        Request $request,
+        ValidatorInterface $validatorInterface,
+        string $id,
+        SerializerInterface $serializerInterface
+    ): Response {
         $applicant = $applicantRepository->find($id);
 
         if ($applicant === null) {
@@ -154,8 +195,11 @@ class ApplicantController extends AbstractController
 
         $applicantRepository->save($applicant, true);
 
-        $json = $serializerInterface->serialize($applicant, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['jobsApplied']]);
-        ;
+        $json = $serializerInterface->serialize(
+            $applicant,
+            'json',
+            [AbstractNormalizer::IGNORED_ATTRIBUTES => ['jobsApplied']]
+        );
 
         return $this->jsonResponse('Applicant updated successfully', $json);
     }

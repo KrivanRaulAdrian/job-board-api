@@ -60,7 +60,7 @@ php -S localhost:8000 -t public
 
 8. Go to http://localhost:8000
 
-***Note:** To generate the JWT security [keypair], use a Linux container running the following command: `docker-compose run -it php-fpm php bin/console lexik:jwt:generate-keypair`.*
+**\*Note:** To generate the JWT security [keypair], use a Linux container running the following command: `docker-compose run -it php-fpm php bin/console lexik:jwt:generate-keypair`.\*
 
 ## Routes <hr/>
 
@@ -76,16 +76,22 @@ You can run PHP CS Fixer to check the code style and PHPStan for static analysis
 
 ## Code Style
 
-Install PHP CS Fixer:
+Install PHP CodeSniffer:
 
 ```
-composer install --working-dir=tools/php-cs-fixer
+composer require squizlabs/php_codesniffer
 ```
 
-Run PHP CS Fixer:
+Run PHP CodeSniffer:
 
 ```
-php tools/php-cs-fixer/vendor/bin/php-cs-fixer fix src --rules=@PSR12
+./vendor/bin/phpcs --standard=PSR12 src/
+```
+
+Run PHP CodeSniffer Fixer:
+
+```
+ ./vendor/bin/phpcbf --standard=PSR12 src/
 ```
 
 ## Static Analysis
@@ -114,6 +120,7 @@ To perform framework-specific checks, include also this file:
 includes:
     - vendor/phpstan/phpstan-symfony/rules.neon
 ```
+
 </details>
 
 Run PHPStan:

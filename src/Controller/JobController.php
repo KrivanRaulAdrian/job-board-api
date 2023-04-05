@@ -29,11 +29,31 @@ class JobController extends AbstractController
         description: "Json to create the job",
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: "title", type: "string", example: "My title example"),
-                new OA\Property(property: "description", type: "string", example: "My description example"),
-                new OA\Property(property: "requiredSkills", type: "string", example: "My required skills example"),
-                new OA\Property(property: "experience", type: "string", example: "My experience example"),
-                new OA\Property(property: "company", type: "string", example: "018703c3-1dce-7bc9-a627-39bd25e58d61"),
+                new OA\Property(
+                    property: "title",
+                    type: "string",
+                    example: "My title example"
+                ),
+                new OA\Property(
+                    property: "description",
+                    type: "string",
+                    example: "My description example"
+                ),
+                new OA\Property(
+                    property: "requiredSkills",
+                    type: "string",
+                    example: "My required skills example"
+                ),
+                new OA\Property(
+                    property: "experience",
+                    type: "string",
+                    example: "My experience example"
+                ),
+                new OA\Property(
+                    property: "company",
+                    type: "string",
+                    example: "018703c3-1dce-7bc9-a627-39bd25e58d61"
+                ),
             ]
         )
     )]
@@ -47,8 +67,12 @@ class JobController extends AbstractController
         description: 'Invalid inputs',
         content: new OA\JsonContent(ref: new Model(type: ResponseDto::class))
     )]
-    public function create(JobRepository $jobRepository, CompanyRepository $companyRepository, Request $request, ValidatorInterface $validatorInterface): Response
-    {
+    public function create(
+        JobRepository $jobRepository,
+        CompanyRepository $companyRepository,
+        Request $request,
+        ValidatorInterface $validatorInterface
+    ): Response {
         $jsonParams = json_decode($request->getContent(), true);
 
         $job = new Job();
@@ -75,8 +99,11 @@ class JobController extends AbstractController
     #[OA\QueryParameter(name: "title", example: "PHP developer")]
     #[OA\QueryParameter(name: "name", example: "Jagaad")]
     #[OA\QueryParameter(name: "location", example: "Italy")]
-    public function findAll(EntityManagerInterface $entityManagerInterface, SerializerInterface $serializerInterface, Request $request): Response
-    {
+    public function findAll(
+        EntityManagerInterface $entityManagerInterface,
+        SerializerInterface $serializerInterface,
+        Request $request
+    ): Response {
         $title = $request->get('title');
         $companyName = $request->get('name');
         $companyLocation = $request->get('location');
@@ -103,23 +130,34 @@ class JobController extends AbstractController
 
         $jobs = $queryBuilder->getQuery()->execute();
 
-        $json = $serializerInterface->serialize($jobs, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['jobPosts', '__isCloning', 'jobsApplied']]);
-        ;
+        $json = $serializerInterface->serialize($jobs, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES =>
+        [
+            'jobPosts',
+            '__isCloning',
+            'jobsApplied'
+        ]]);
 
         return $this->jsonResponse('List of jobs requested', $json);
     }
     #[Route(path: "/jobs/{id}", methods: ["GET"])]
     #[OA\Get(description: "Return a job by its ID")]
-    public function findById(JobRepository $jobRepository, string $id, SerializerInterface $serializerInterface): Response
-    {
+    public function findById(
+        JobRepository $jobRepository,
+        string $id,
+        SerializerInterface $serializerInterface
+    ): Response {
         $job = $jobRepository->find($id);
 
         if ($job === null) {
             return $this->jsonResponse('Job not found', ['id' => $id], 404);
         }
 
-        $json = $serializerInterface->serialize($job, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['jobPosts', '__isCloning', 'jobsApplied']]);
-        ;
+        $json = $serializerInterface->serialize($job, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES =>
+        [
+            'jobPosts',
+            '__isCloning',
+            'jobsApplied'
+        ]]);
 
         return $this->jsonResponse('Job by ID', $json);
     }
@@ -129,10 +167,26 @@ class JobController extends AbstractController
         description: "Json to update the job",
         content: new OA\JsonContent(
             properties: [
-                new OA\Property(property: "title", type: "string", example: "My update title example"),
-                new OA\Property(property: "description", type: "string", example: "My update description example"),
-                new OA\Property(property: "requiredSkills", type: "string", example: "My update required skills example"),
-                new OA\Property(property: "experience", type: "string", example: "My update experience example"),
+                new OA\Property(
+                    property: "title",
+                    type: "string",
+                    example: "My update title example"
+                ),
+                new OA\Property(
+                    property: "description",
+                    type: "string",
+                    example: "My update description example"
+                ),
+                new OA\Property(
+                    property: "requiredSkills",
+                    type: "string",
+                    example: "My update required skills example"
+                ),
+                new OA\Property(
+                    property: "experience",
+                    type: "string",
+                    example: "My update experience example"
+                ),
             ]
         )
     )]
@@ -146,8 +200,13 @@ class JobController extends AbstractController
         description: 'Invalid inputs',
         content: new OA\JsonContent(ref: new Model(type: ResponseDto::class))
     )]
-    public function update(JobRepository $jobRepository, Request $request, ValidatorInterface $validatorInterface, string $id, SerializerInterface $serializerInterface): Response
-    {
+    public function update(
+        JobRepository $jobRepository,
+        Request $request,
+        ValidatorInterface $validatorInterface,
+        string $id,
+        SerializerInterface $serializerInterface
+    ): Response {
         $job = $jobRepository->find($id);
 
         if ($job === null) {
@@ -169,8 +228,12 @@ class JobController extends AbstractController
 
         $jobRepository->save($job, true);
 
-        $json = $serializerInterface->serialize($job, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['jobPosts', '__isCloning', 'jobsApplied']]);
-        ;
+        $json = $serializerInterface->serialize($job, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES =>
+        [
+            'jobPosts',
+            '__isCloning',
+            'jobsApplied'
+        ]]);
 
         return $this->jsonResponse('Job updated successfully', $json);
     }
