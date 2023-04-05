@@ -72,4 +72,4 @@ jobs:
           dependency-versions: "${{ matrix.dependencies }}"
 
       - name: "Coding Standard"
-        run: "php tools/php-cs-fixer/vendor/bin/php-cs-fixer fix src --rules=@PSR12"
+        run: "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix src --rules=@PSR12"
