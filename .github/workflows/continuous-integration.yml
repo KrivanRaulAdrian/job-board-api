@@ -42,7 +42,7 @@ jobs:
         run: "vendor/bin/phpstan analyse --memory-limit=-1"
 
   coding-standards:
-    name: "Check Coding Standards"
+   name: "Check Coding Standards"
 
     runs-on: ${{ matrix.operating-system }}
 
@@ -72,4 +72,4 @@ jobs:
           dependency-versions: "${{ matrix.dependencies }}"
 
       - name: "Coding Standard"
-        run: "php tools/php-cs-fixer/vendor/bin/php-cs-fixer fix src --rules=@PSR12"
+        run: "vendor/bin/phpcs src/ --standard=psr12"
