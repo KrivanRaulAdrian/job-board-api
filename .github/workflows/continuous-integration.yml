@@ -67,9 +67,9 @@ jobs:
           ini-values: memory_limit=-1
 
       - name: "Install dependencies"
-        uses: "composer install --working-dir=tools/php-cs-fixer"
+        uses: "ramsey/composer-install@2.2.0"
         with:
           dependency-versions: "${{ matrix.dependencies }}"
 
       - name: "Coding Standard"
-        run: "php tools/php-cs-fixer/vendor/bin/php-cs-fixer fix src --rules=@PSR12"
+        run: "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix src --rules=@PSR12"
