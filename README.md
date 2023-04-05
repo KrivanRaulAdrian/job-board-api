@@ -37,7 +37,7 @@ cd job-board-api/
 composer install
 ```
 
-4. Go to MySQL and create the database `job-board-api`
+4. Go to MySQL and create the database `job-board-api `
 5. Create a file `.env.local` and add your database connection. Example:
 
 ```dotenv
