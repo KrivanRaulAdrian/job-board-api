@@ -42,34 +42,36 @@ jobs:
         run: "vendor/bin/phpstan analyse --memory-limit=-1"
 
   coding-standards:
-    name: "Check Coding Standards"
-
-    runs-on: ${{ matrix.operating-system }}
-
+   runs-on: ubuntu-18.04
     strategy:
       matrix:
-        dependencies:
-          - "locked"
         php-version:
-          - "8.2"
-        operating-system:
-          - "ubuntu-latest"
-
+          - '8.0'
+          - '8.1'
+          - '8.2'
     steps:
-      - name: "Checkout"
-        uses: "actions/checkout@v3"
+      - uses: actions/checkout@v2
 
-      - name: "Install PHP"
-        uses: "shivammathur/setup-php@v2"
+      - uses: shivammathur/setup-php@v2
         with:
-          coverage: "none"
           php-version: "${{ matrix.php-version }}"
-          ini-values: memory_limit=-1
+          coverage: none
+          tools: composer
 
-      - name: "Install dependencies"
-        uses: "ramsey/composer-install@2.2.0"
+      - name: Restore Composer dependencies
+        id: composer-cache
+        uses: actions/cache@v2
         with:
-          dependency-versions: "${{ matrix.dependencies }}"
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+      - name: Install Composer dependencies
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install --prefer-dist --no-progress --no-suggest --no-interaction
 
-      - name: "Coding Standard"
-        run: "tools/php-cs-fixer/vendor/bin/php-cs-fixer fix src"
+      - name: Run PHP CS fixer
+        run: vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --dry-run --diff --verbose --stop-on-violation
+
+      - name: Run Composer normalized
+        run: composer normalize --dry-run
