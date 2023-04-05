@@ -7,7 +7,7 @@ on:
       - "master"
 
 jobs:
-  static-analysis-phpstan:
+    static-analysis-phpstan:
     name: "Static Analysis by PHPStan"
 
     runs-on: ${{ matrix.operating-system }}
