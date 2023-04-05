@@ -42,7 +42,7 @@ jobs:
         run: "vendor/bin/phpstan analyse --memory-limit=-1"
 
   coding-standards:
-   name: "Check Coding Standards"
+    name: "Check Coding Standards"
 
     runs-on: ${{ matrix.operating-system }}
 
