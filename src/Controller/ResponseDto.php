@@ -11,7 +11,7 @@ class ResponseDto
         public readonly string $message,
         #[OA\Property(property: "data", type: "object")]
         public readonly array $data,
-        #[Oa\Property(property: "statusCode", type: "integer", example: 200)]
+        #[OA\Property(property: "statusCode", type: "integer", example: 200)]
         public readonly int $statusCode = 201,
     ) {
     }
