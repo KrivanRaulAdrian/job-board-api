@@ -1,3 +1,5 @@
+[![Continuous Integration](https://github.com/KrivanRaulAdrian/job-board-api/actions/workflows/continuous-integration.yml/badge.svg?branch=master)](https://github.com/KrivanRaulAdrian/job-board-api/actions/workflows/continuous-integration.yml)
+
 <p align="center">
   <img align="center" height="200" src=" public/symfony.png">
 </p>
@@ -37,7 +39,7 @@ cd job-board-api/
 composer install
 ```
 
-4. Go to MySQL and create the database `job-board-ap`
+4. Go to MySQL and create the database `job-board-api `
 5. Create a file `.env.local` and add your database connection. Example:
 
 ```dotenv
