@@ -131,6 +131,6 @@ Run PHPStan:
 php vendor/bin/phpstan analyze
 ```
 
-## Learn More <hr/>
+## Learn More <hr>
 
 To know more about the development of Symfony applications, [check the official documentation](https://symfony.com/doc/current/index.html).
