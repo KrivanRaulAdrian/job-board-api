@@ -12,14 +12,14 @@ The API has user authentication features, where clients can sign up and log in t
 
 The Job Board API consists of entities such as user, company, job, and applicant, and the fields of these entities are customizable. The API provides well-structured routes for clients to perform CRUD operations on entities.
 
-## Requirments <hr/>
+## Requirments
 
 - PHP 8.2
 - <a href="https://getcomposer.org/" rel="nofollow">Composer</a>
 - <a href="https://www.mamp.info/en/mamp/windows/" rel="nofollow">MAMP</a>
 - <a href="https://symfony.com/download" rel="nofollow">Symfony CLI</a> (optional)
 
-## Install <hr/>
+## Install
 
 1. Clone the repository:
 
@@ -64,7 +64,7 @@ php -S localhost:8000 -t public
 
 **\*Note:** To generate the JWT security [keypair], use a Linux container running the following command: `docker-compose run -it php-fpm php bin/console lexik:jwt:generate-keypair`.\*
 
-## Routes <hr/>
+## Routes
 
 To access the API documentation, go to http://localhost:8000/api/doc.
 
@@ -72,7 +72,7 @@ To access the API documentation, go to http://localhost:8000/api/doc.
   <img align="center" src=" public/job-board-api.png">
 </p>
 
-## Quality Tools <hr/>
+## Quality Tools
 
 You can run PHP CS Fixer to check the code style and PHPStan for static analysis.
 
