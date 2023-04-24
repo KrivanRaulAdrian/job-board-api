@@ -151,6 +151,8 @@ This command automatically runs your application tests. Each test is a PHP class
 
 </details>
 
+<hr/>
+
 ## Learn More
 
 To know more about the development of Symfony applications, [check the official documentation](https://symfony.com/doc/current/index.html).
