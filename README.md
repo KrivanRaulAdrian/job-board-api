@@ -1,7 +1,7 @@
 [![Continuous Integration](https://github.com/KrivanRaulAdrian/job-board-api/actions/workflows/continuous-integration.yml/badge.svg?branch=master)](https://github.com/KrivanRaulAdrian/job-board-api/actions/workflows/continuous-integration.yml)
 
 <p align="center">
-  <img align="center" height="200" src=" public/symfony.png">
+  <img align="center" height="200" src="public/symfony.png">
 </p>
 
 <h1 align="center">Job Board API</h1>
@@ -69,7 +69,7 @@ php -S localhost:8000 -t public
 To access the API documentation, go to http://localhost:8000/api/doc.
 
 <p align="center">
-  <img align="center" src=" public/job-board-api.png">
+  <img align="center" src="public/job-board-api.png">
 </p>
 
 ## Quality Tools
